@@ -11,9 +11,12 @@
         "mainModule": "module.mjs"
       },
       "menuAction": {
+        "title": "TestPluginMenuButton",
+        "icon": false,
         "page": {
           "content": "pluginFrame.html",
           "title": "TestPlugin"
+
         }
       }
     }
