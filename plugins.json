@@ -1,0 +1,15 @@
+{
+  "description": "ScaleWallet plugins repo. ScaleWallet can load plugins only from this repo.",
+  "site": "https://scalewallet.com",
+  "plugins": [
+    {
+      "name": "TestPlugin",
+      "path": "test_plugin",
+      "modules": {
+        "background": false,
+        "frame": "pluginFrame.html",
+        "mainModule": "module.mjs"
+      }
+    }
+  ]
+}
