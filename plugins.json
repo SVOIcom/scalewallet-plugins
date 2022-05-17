@@ -9,6 +9,12 @@
         "background": false,
         "frame": "pluginFrame.html",
         "mainModule": "module.mjs"
+      },
+      "menuAction": {
+        "page": {
+          "content": "pluginFrame.html",
+          "title": "TestPlugin"
+        }
       }
     }
   ]
