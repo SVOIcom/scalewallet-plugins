@@ -5,6 +5,7 @@
     {
       "name": "TestPlugin",
       "path": "test_plugin",
+      "description": "Just test plugin",
       "modules": {
         "background": false,
         "frame": "pluginFrame.html",
@@ -17,6 +18,24 @@
           "content": "pluginFrame.html",
           "title": "TestPlugin"
 
+        }
+      }
+    },
+    {
+      "name": "TestDeBot Browser",
+      "path": "test_debotBrowser",
+      "description": "Test plugin implements debot browser",
+      "modules": {
+        "background": false,
+        "frame": "https://browser.freeton-stats.org",
+        "mainModule": false
+      },
+      "menuAction": {
+        "title": "DeBot browser",
+        "icon": false,
+        "page": {
+          "content": "https://browser.freeton-stats.org",
+          "title": "DeBot Browser"
         }
       }
     }
