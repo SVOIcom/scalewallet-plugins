@@ -88,3 +88,7 @@ body.darkmode .card{
 body.darkmode .card-img{
     background-color: #3b3b3b;
 }
+
+::-webkit-scrollbar {
+    width: 5px;
+}
