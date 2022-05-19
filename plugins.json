@@ -5,6 +5,7 @@
     {
       "name": "TestPlugin",
       "path": "test_plugin",
+      "disabled": true,
       "description": "Just test plugin",
       "modules": {
         "background": false,
@@ -17,7 +18,6 @@
         "page": {
           "content": "pluginFrame.html",
           "title": "TestPlugin"
-
         }
       }
     },
@@ -36,6 +36,24 @@
         "page": {
           "content": "https://browser.freeton-stats.org",
           "title": "DeBot Browser"
+        }
+      }
+    },
+    {
+      "name": "NFT Wallet",
+      "path": "nft_wallet",
+      "description": "NFT Wallet plugin allows to manage your NFT tokens in ScaleWallet",
+      "modules": {
+        "background": false,
+        "frame": "pluginFrame.html",
+        "mainModule": false
+      },
+      "menuAction": {
+        "title": "NFT Wallet",
+        "icon": false,
+        "page": {
+          "content": "pluginFrame.html",
+          "title": "NFT Wallet"
         }
       }
     }
