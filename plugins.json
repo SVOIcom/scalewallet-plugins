@@ -50,7 +50,7 @@
       },
       "menuAction": {
         "title": "NFT Wallet",
-        "icon": false,
+        "icon": "menu_icon.png",
         "page": {
           "content": "pluginFrame.html",
           "title": "NFT Wallet"
