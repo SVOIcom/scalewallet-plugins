@@ -71,3 +71,20 @@
     text-decoration: underline;
     cursor: pointer;
 }
+
+body.darkmode{
+    background-color: #202020;
+    color: #fff;
+    --bs-card-bg: #000;
+}
+
+
+
+body.darkmode .card{
+    --bs-card-bg: #000;
+    --bs-body-color-rgb: 160, 160, 160;
+}
+
+body.darkmode .card-img{
+    background-color: #3b3b3b;
+}
