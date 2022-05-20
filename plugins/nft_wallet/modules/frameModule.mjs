@@ -29,6 +29,22 @@ window.EVER = EVER;
 
 let userAddress = window.userAddress = (await EVER.getWallet()).address;
 
+
+/**
+ * Transfer token
+ * @param {string} collectionAddress
+ * @param {number} tokenAddress
+ * @param {string} to
+ * @param {string} returnGasTo
+ * @returns {Promise<*>}
+ */
+async function transferToken(collectionAddress, tokenAddress, to, returnGasTo) {
+    let tip4 = await (new TIP4Collection(EVER)).init(collectionAddress);
+    let nft = await tip4.getNftByAddress(tokenAddress);
+    let payload = await nft.transferPayload(to, returnGasTo);
+    return await EVER.walletTransfer(nft.address, CONSTS.NFT_TRANSFER_EVER_AMOUNT, payload)
+}
+
 /**
  * Collect user collections info
  * @param {string} userAddress
@@ -61,6 +77,11 @@ async function collectCollections(userAddress, collectionsList = CONSTS.NFT_COLL
     return collections;
 }
 
+/**
+ * Show collection in UI
+ * @param collections
+ * @returns {Promise<void>}
+ */
 async function showCollections(collections) {
     let html = '';
     for (let collectionName in collections) {
@@ -98,7 +119,7 @@ async function showCollections(collections) {
                             <p class="card-text">${token?.description}</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Transfer</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary transferButton" data-collection="${token.collection}" data-address="${token.address}">Transfer</button>
                                   <!--  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button> -->
                                 </div>
                                 <small class="text-muted autoClipboard nftAddress" data-clipboard="${token.address}">${UTILS.shortenPubkey(token.address)}</small>
@@ -118,6 +139,17 @@ async function showCollections(collections) {
 
     $('#pluginMain').html(html);
     $('.autoClipboard').click(pluginUtils.selfCopyElement());
+
+    $('.transferButton').click(async (event) => {
+        let to = prompt('Token receiver address');
+
+        let collectionAddress = $(event.target).data('collection');
+        let tokenAddress = $(event.target).data('address');
+
+        await transferToken(collectionAddress, tokenAddress, to, userAddress);
+        alert('Transfer complete');
+    })
+
 }
 
 let userCollections = await collectCollections(userAddress);
