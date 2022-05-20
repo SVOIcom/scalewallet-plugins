@@ -126,7 +126,13 @@ async function collectCollections(userAddress, collectionsList = CONSTS.NFT_COLL
 async function showCollections(collections) {
     let html = '';
     for (let collectionName in collections) {
+
         let collection = collections[collectionName];
+
+        if(collection.tokens.length === 0) {
+            continue;
+        }
+
         html += `
                 <section class=" text-center container">
                     <div class="row align-items-center">
@@ -148,7 +154,6 @@ async function showCollections(collections) {
         `;
 
         for (let token of collection.tokens) {
-            console.log(token);
             html += `
                 <div class="col">
                     <div class="card shadow-sm">
@@ -176,7 +181,9 @@ async function showCollections(collections) {
     </div>`;
     }
 
-    console.log(html);
+    if(html === '') {
+        html = `<div class="container" style="text-align: center"><h1 class="fw-light">No TIP-4 tokens found</h1></div>`;
+    }
 
     $('#pluginMain').html(html);
     $('.autoClipboard').click(pluginUtils.selfCopyElement());
