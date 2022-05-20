@@ -182,16 +182,15 @@ await review();
  * @returns {Promise<void>}
  */
 async function backgroundUpdateData() {
-    if(localStorage.userCollections) {
 
 
-        let newUserCollections = await collectCollections(userAddress);
+    let newUserCollections = await collectCollections(userAddress);
 
-        if(JSON.stringify(newUserCollections) !== localStorage.userCollections) {
-            localStorage.userCollections = JSON.stringify(newUserCollections);
-            await review(newUserCollections);
-        }
+    if(JSON.stringify(newUserCollections) !== localStorage.userCollections) {
+        localStorage.userCollections = JSON.stringify(newUserCollections);
+        await review(newUserCollections);
     }
+
     setTimeout(backgroundUpdateData, CONSTS.BACKGROUND_UPDATE_INTERVAL);
 }
 
