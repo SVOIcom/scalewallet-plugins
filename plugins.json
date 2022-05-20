@@ -55,6 +55,13 @@
           "content": "pluginFrame.html",
           "title": "NFT Wallet"
         }
+      },
+      "mainTab": {
+        "title": "NFT",
+        "page": {
+          "content": "pluginFrame.html",
+          "title": "NFT Wallet"
+        }
       }
     }
   ]
