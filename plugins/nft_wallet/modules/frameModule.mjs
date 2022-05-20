@@ -242,7 +242,6 @@ async function review() {
         userCollections = JSON.parse(localStorage[`userCollections_${userAddress}`]);
     }
 
-    console.log(userCollections);
 
     await showCollections(userCollections);
 }
