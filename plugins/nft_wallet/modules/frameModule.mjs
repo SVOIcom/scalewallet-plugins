@@ -12,21 +12,27 @@ window.PROVIDERS = PROVIDERS;
 window.UTILS = UTILS;
 
 let EVER = null;
-try {
 
-    //Initialize provider
-    EVER = await getProvider({
-        network: 'main',
-        networkServer: 'alwaysonlineevermainnode.svoi.dev'
-    }, PROVIDERS.EverscaleWallet);
-    await EVER.requestPermissions();
-    await EVER.start();
-} catch (e) {
-    console.log(e);
-    //alert('Everscale connection error ' + e.message);
-    $('#pluginMain').html(`<div class="container" style="text-align: center"><h1 class="fw-light">No TIP-4 tokens found</h1></div>`);
+async function initEVER() {
+    try {
+
+        //Initialize provider
+        EVER = await getProvider({
+            network: 'main',
+            networkServer: 'alwaysonlineevermainnode.svoi.dev'
+        }, PROVIDERS.EverscaleWallet);
+        await EVER.requestPermissions();
+        await EVER.start();
+
+        window.EVER = EVER;
+    } catch (e) {
+        console.log(e);
+        //alert('Everscale connection error ' + e.message);
+        $('#pluginMain').html(`<div class="container" style="text-align: center"><h1 class="fw-light">No TIP-4 tokens found</h1></div>`);
+    }
+
 }
-window.EVER = EVER;
+await initEVER();
 
 let userAddress = (await EVER.getWallet()).address;
 
@@ -79,6 +85,10 @@ EVER.on('pubkeyChanged', async () => {
 });
 
 setInterval(async () => {
+    if(! window.EVER) {
+        await initEVER();
+        return;
+    }
     let currentAddress = (await EVER.getWallet()).address;
 
     if(currentAddress !== userAddress) {
