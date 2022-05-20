@@ -23,7 +23,7 @@ try {
     await EVER.start();
 } catch (e) {
     console.log(e);
-    alert('Everscale connection error ' + e.message);
+    //alert('Everscale connection error ' + e.message);
 }
 window.EVER = EVER;
 
