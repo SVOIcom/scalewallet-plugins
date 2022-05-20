@@ -212,10 +212,10 @@ async function review() {
 
     let userCollections = {};
 
-    if(!localStorage.userCollections) {
+    if(!localStorage[`userCollections_${userAddress}`]) {
         return;
     } else {
-        userCollections = JSON.parse(localStorage.userCollections);
+        userCollections = JSON.parse(localStorage[`userCollections_${userAddress}`]);
     }
 
     console.log(userCollections);
@@ -235,8 +235,8 @@ async function backgroundUpdateData() {
     try {
         let newUserCollections = await collectCollections(userAddress);
 
-        if(JSON.stringify(newUserCollections) !== localStorage.userCollections) {
-            localStorage.userCollections = JSON.stringify(newUserCollections);
+        if(JSON.stringify(newUserCollections) !== localStorage[`userCollections_${userAddress}`]) {
+            localStorage[`userCollections_${userAddress}`] = JSON.stringify(newUserCollections);
             await review(newUserCollections);
         }
     } catch (e) {
