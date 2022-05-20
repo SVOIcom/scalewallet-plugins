@@ -6,6 +6,7 @@ const CONSTS = {
         }
     ],
     NFT_TRANSFER_EVER_AMOUNT: 3e9,
+    BACKGROUND_UPDATE_INTERVAL: 60000,
 };
 
 export default CONSTS;

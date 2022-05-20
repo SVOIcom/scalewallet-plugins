@@ -152,8 +152,47 @@ async function showCollections(collections) {
 
 }
 
-let userCollections = await collectCollections(userAddress);
+/**
+ * Update collections view
+ * @returns {Promise<void>}
+ */
+async function review() {
 
-console.log(userCollections);
+    //Update address
+    userAddress = window.userAddress = (await EVER.getWallet()).address;
 
-await showCollections(userCollections);
+    let userCollections = {};
+
+    if(!localStorage.userCollections) {
+        return;
+    } else {
+        userCollections = JSON.parse(localStorage.userCollections);
+    }
+
+    console.log(userCollections);
+
+    await showCollections(userCollections);
+}
+
+await review();
+
+
+/**
+ * Update data in background
+ * @returns {Promise<void>}
+ */
+async function backgroundUpdateData() {
+    if(localStorage.userCollections) {
+
+
+        let newUserCollections = await collectCollections(userAddress);
+
+        if(JSON.stringify(newUserCollections) !== localStorage.userCollections) {
+            localStorage.userCollections = JSON.stringify(newUserCollections);
+            await review(newUserCollections);
+        }
+    }
+    setTimeout(backgroundUpdateData, CONSTS.BACKGROUND_UPDATE_INTERVAL);
+}
+
+await backgroundUpdateData();
