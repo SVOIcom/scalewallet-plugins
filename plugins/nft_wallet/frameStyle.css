@@ -89,6 +89,24 @@ body.darkmode .card-img{
     background-color: #3b3b3b;
 }
 
+body.darkmode .modal-content{
+    background-color: #3b3b3b;
+}
+
+body.darkmode .form-control{
+    background-color: #3b3b3b;
+    color: white;
+}
+
+
+.toastHolder{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 99999;
+    width: 100%;
+}
+
 ::-webkit-scrollbar {
     width: 5px;
 }

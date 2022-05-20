@@ -29,6 +29,47 @@ window.EVER = EVER;
 
 let userAddress = window.userAddress = (await EVER.getWallet()).address;
 
+/**
+ * Show address prompt modal
+ * @returns {Promise<unknown>}
+ */
+function promptTransferAddress() {
+    return new Promise((resolve, reject) => {
+        let modalElement = $('#transferModal')
+        let transferModal = new bootstrap.Modal(modalElement)
+        transferModal.show();
+
+        $('#transferAddress').val('');
+
+        modalElement.find('.btn-primary').click(() => {
+            let value = $('#transferAddress').val();
+            resolve(value);
+        })
+
+
+        modalElement.on('hidden.bs.modal', event => {
+            reject();
+        })
+    });
+}
+
+function showToast(msg, type = 'primary') {
+    let id = (Math.random() * 10000).toFixed(0)
+    $('.toastHolder').append($(`<div class="toast align-items-center text-bg-${type}" id="${id}" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                ${msg}
+            </div>
+            <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>`))
+    let toast = new bootstrap.Toast($(`#${id}`));
+
+    toast.show();
+}
+
+window.showToast = showToast;
+
 
 /**
  * Transfer token
@@ -141,13 +182,21 @@ async function showCollections(collections) {
     $('.autoClipboard').click(pluginUtils.selfCopyElement());
 
     $('.transferButton').click(async (event) => {
-        let to = prompt('Token receiver address');
 
-        let collectionAddress = $(event.target).data('collection');
-        let tokenAddress = $(event.target).data('address');
+        try {
+            let to = await promptTransferAddress();
 
-        await transferToken(collectionAddress, tokenAddress, to, userAddress);
-        alert('Transfer complete');
+            let collectionAddress = $(event.target).data('collection');
+            let tokenAddress = $(event.target).data('address');
+
+            await transferToken(collectionAddress, tokenAddress, to, userAddress);
+
+            showToast('Transfer request sent', 'success')
+        } catch (e) {
+            console.log('Transfer error', e);
+            showToast('Transfer error: ' + e.message, 'warning');
+        }
+
     })
 
 }
