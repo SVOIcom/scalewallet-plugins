@@ -27,7 +27,7 @@ try {
 }
 window.EVER = EVER;
 
-let userAddress = window.userAddress = (await EVER.getWallet()).address;
+let userAddress = (await EVER.getWallet()).address;
 
 /**
  * Show address prompt modal
@@ -69,6 +69,23 @@ function showToast(msg, type = 'primary') {
 }
 
 window.showToast = showToast;
+
+
+//Check changes
+EVER.on('pubkeyChanged', async () => {
+    await review();
+    await backgroundUpdateData();
+});
+
+setInterval(async () => {
+    let currentAddress = (await EVER.getWallet()).address;
+
+    if(currentAddress !== userAddress) {
+        userAddress = currentAddress;
+        await review();
+        await backgroundUpdateData();
+    }
+}, 1000);
 
 
 /**
