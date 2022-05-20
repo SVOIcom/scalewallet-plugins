@@ -24,6 +24,7 @@ try {
 } catch (e) {
     console.log(e);
     //alert('Everscale connection error ' + e.message);
+    $('#pluginMain').html(`<div class="container" style="text-align: center"><h1 class="fw-light">No TIP-4 tokens found</h1></div>`);
 }
 window.EVER = EVER;
 
