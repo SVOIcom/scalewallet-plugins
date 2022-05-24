@@ -24,6 +24,7 @@
     {
       "name": "TestDeBot Browser",
       "path": "test_debotBrowser",
+      "disabled": true,
       "description": "Test plugin implements debot browser",
       "modules": {
         "background": false,
@@ -42,6 +43,7 @@
     {
       "name": "NFT Wallet",
       "path": "nft_wallet",
+      "disabled": true,
       "description": "NFT Wallet plugin allows to manage your NFT tokens in ScaleWallet",
       "modules": {
         "background": false,
