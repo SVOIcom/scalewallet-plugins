@@ -43,7 +43,7 @@
     {
       "name": "NFT Wallet",
       "path": "nft_wallet",
-      "disabled": true,
+      "disabled": false,
       "description": "NFT Wallet plugin allows to manage your NFT tokens in ScaleWallet",
       "modules": {
         "background": false,
